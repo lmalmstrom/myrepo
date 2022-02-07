@@ -206,4 +206,4 @@ class Sovellus:
 #lue_tiedosto("kaikki.json")
 #luettelo.tulosta_kaikki()
 
-a = Sovellus()
+#a = Sovellus()
