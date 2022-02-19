@@ -1,5 +1,6 @@
 # tee ratkaisusi tänne
 import json
+import pprint
 class Pelaaja:
     def __init__(self, name: str, nationality: str, assists: int, goals: int, penalties: int, team: str, games: int):
         self.__nimi = name
@@ -52,7 +53,7 @@ class PelaajaLuettelo:
         for pelaaja in self.__luettelo:
             if pelaaja.nimi == nimi:
                 return pelaaja
-        return None
+        return 'not found'
 
     def hae_joukkueet(self):
         joukkueet = []
@@ -112,10 +113,7 @@ class PelaajaLuettelo:
 class Sovellus:
     def __init__(self):
         self.__luettelo = PelaajaLuettelo()
-        tiedostonimi = input("tiedosto: ")
-#        tiedostonimi = "osa.json"
-        self.lue_tiedosto(tiedostonimi)
-        self.suorita()
+        self.lue_tiedosto('kaikki.json')
 
     def lue_tiedosto(self,tiedostonimi):
         with open(tiedostonimi,) as data:
@@ -130,54 +128,25 @@ class Sovellus:
         print(f"luettiin {lkm} pelaajan tiedot")
         print()
 
-    def suorita(self):
-        self.ohje()
-        while True:
-            komento = input("komento: ")
-            
-            if komento == "0":
-                break
-            if komento == "1":
-                self.hae_pelaaja()
-            if komento == "2":
-                self.hae_joukkueet()
-            if komento == "3":
-                self.hae_maat()
-            if komento == "4":
-                self.joukkueen_pelaajat()
-            if komento == "5":
-                self.maan_pelaajat()
-            if komento == "6":
-                self.eniten_pisteita()
-            if komento == "7":
-                self.eniten_maaleja()
-        
-    def ohje(self):
-        print("komennot:")
-        print("0 lopeta")
-        print("1 hae pelaaja")
-        print("2 joukkueet")
-        print("3 maat")
-        print("4 joukkueen pelaajat")
-        print("5 maan pelaajat")
-        print("6 eniten pisteitä")
-        print("7 eniten maaleja")
 
-    def hae_pelaaja(self):
-        haettava_pelaaja = input("nimi: ")
+    def hae_pelaaja(self, haettava_pelaaja: str):
+        #haettava_pelaaja = input("nimi: ")
         pelaaja = self.__luettelo.hae_pelaaja(haettava_pelaaja)
-        print(pelaaja)
+        pelaaja_json = json.dumps(pelaaja.__dict__, indent=2)
+        print(pelaaja_json)
+
+        return pelaaja_json
 
     def hae_joukkueet(self):
         joukkueet = self.__luettelo.hae_joukkueet()
-        for joukkue in sorted(joukkueet):
-            print(joukkue)
+        sorted_joukkueet = sorted (joukkueet)
+        return json.dumps(sorted_joukkueet, indent=2); 
 
     def hae_maat(self):
         maat = self.__luettelo.hae_maat()
-        for maa in sorted(maat):
-            print(maa)
-    
+        maat_sorted = sorted(maat); 
+        return json.dumps(maat_sorted, indent=2); 
+
     def joukkueen_pelaajat(self):
         joukkue = input("joukkue: ")
         pelaajat = self.__luettelo.hae_joukkueen_pelaajat(joukkue)
