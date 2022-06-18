@@ -1,5 +1,9 @@
 # myrepo
-
+    
+    This repo is filled with all kinds of test projects. My own and from courses.
+    
+# restapi
+    
 ### configuration
 
     install flask
