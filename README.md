@@ -1,6 +1,6 @@
 # myrepo
     
-    This repo is filled with all kinds of test projects
+    This repo is filled with all kinds of test projects. My own and from courses.
     
 # restapi
     
